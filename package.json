@@ -1,0 +1,24 @@
+{
+  "name": "puzzle",
+  "version": "0.0.1",
+  "description": "Awesome project developed with TypeORM.",
+  "devDependencies": {
+    "@types/node": "^8.0.29",
+    "nodemon": "^1.18.11",
+    "ts-node": "3.3.0",
+    "typescript": "2.5.2"
+  },
+  "dependencies": {
+    "@types/hapi": "^18.0.1",
+    "hapi": "^18.1.0",
+    "pg": "^7.3.0",
+    "reflect-metadata": "^0.1.10",
+    "typeorm": "0.2.16",
+    "vue": "^2.6.10",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.0"
+  },
+  "scripts": {
+    "start": "ts-node index.ts"
+  }
+}
