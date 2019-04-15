@@ -13,6 +13,11 @@ module.exports = {
   },
   resolve: {
     alias: {
+      api: path.resolve(__dirname, "src/api"),
+      pages: path.resolve(__dirname, "src/pages"),
+      routes: path.resolve(__dirname, "src/routes"),
+      server: path.resolve(__dirname, "src/server"),
+      utils: path.resolve(__dirname, "src/utils"),
       vue$: "vue/dist/vue.esm.js"
     },
     extensions: [".js", ".json", ".vue"]
@@ -45,5 +50,8 @@ module.exports = {
       }
     ]
   },
-  mode: "development"
+  mode: "development",
+  externals: {
+    knex: "commonjs knex"
+  }
 };

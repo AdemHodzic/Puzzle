@@ -15,7 +15,8 @@
   "dependencies": {
     "bookshelf": "^0.14.2",
     "hapi": "^18.1.0",
-    "knex": "^0.16.5",
+    "joi": "^14.3.1",
+    "knex": "<0.15.0",
     "pg": "^7.9.0",
     "qs": "^6.7.0",
     "regenerator-runtime": "^0.13.2",
@@ -24,6 +25,6 @@
   },
   "scripts": {
     "build": "webpack -p",
-    "start": "ts-node index.ts"
+    "dev": "webpack -d"
   }
 }
