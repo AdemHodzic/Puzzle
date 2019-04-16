@@ -14,9 +14,31 @@ const routes = [
       handler: (request, h) => adminView()
     },
     {
-      method: ["GET", "POST"],
+      method: "GET",
       path: "/login",
-      handler: (request, h) => loginView()
+      handler: loginView,
+      options: {
+        auth: false
+      }
+    },
+    {
+      method: "POST",
+      path: "/login",
+      handler: loginView,
+      options: {
+        auth: false,
+        validate: {
+          payload: {
+            password: Joi.string()
+              .min(10)
+              .max(70),
+            username: Joi.string()
+              .alphanum()
+              .min(3)
+              .max(30)
+          }
+        }
+      }
     },
     {
       method: "GET",
@@ -44,6 +66,9 @@ const routes = [
         return pageView();
       }
       return entryView();
+    },
+    options: {
+      auth: false
     }
   },
   {
@@ -52,6 +77,9 @@ const routes = [
     handler: (request, h) => {
       // TODO: Get page or 404 from DB using request.path
       return pageView(/*data*/);
+    },
+    options: {
+      auth: false
     }
   }
 ];

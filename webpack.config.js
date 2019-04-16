@@ -15,6 +15,8 @@ module.exports = {
     alias: {
       api: path.resolve(__dirname, "src/api"),
       components: path.resolve(__dirname, "src/components"),
+      db: path.resolve(__dirname, "src/db"),
+      models: path.resolve(__dirname, "src/models"),
       routes: path.resolve(__dirname, "src/routes"),
       server: path.resolve(__dirname, "src/server"),
       utils: path.resolve(__dirname, "src/utils"),

@@ -2809,6 +2809,16 @@ handlebars@^4.1.0:
   optionalDependencies:
     uglify-js "^3.1.4"
 
+hapi-auth-cookie@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/hapi-auth-cookie/-/hapi-auth-cookie-10.0.0.tgz#a332c5b5ba4095b63245943dc184a1520fc6308a"
+  integrity sha512-8oCiKTvhp0AaBJLaMGUBLiKvVulxmdbvYm5P32TkS2ePWL+axRJj975qrKaAuZyr5i0e9QInaa2ARMnRDM1zPw==
+  dependencies:
+    boom "7.x.x"
+    bounce "1.x.x"
+    hoek "6.x.x"
+    joi "14.x.x"
+
 hapi@^18.1.0:
   version "18.1.0"
   resolved "https://registry.yarnpkg.com/hapi/-/hapi-18.1.0.tgz#98a2a5a8f37a41eb196bdad9727f66b1fbca5fec"
