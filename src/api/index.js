@@ -1,5 +1,21 @@
+// This file is part of Puzzle.
+
+// Puzzle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of
+// the License, or (at your option) any later version.
+
+// Puzzle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+
+// You should have received a copy of the GNU Affero General Public
+// License along with Puzzle. If not, see <https://www.gnu.org/licenses/>.
+
 "use strict";
 
+import { User } from "models/user";
 import Joi from "joi";
 import { concatRoutes } from "utils";
 
@@ -140,8 +156,12 @@ const routes = concatRoutes("/api", [
   {
     method: ["GET", "POST"],
     path: "/users",
-    handler: function(request, h) {
-      return "users";
+    handler: async (request, h) => {
+      const users = await User.query();
+      return users.map(u => {
+        const { password_hash, ...user } = u;
+        return user;
+      });
     }
   },
   {

@@ -15,8 +15,6 @@
 
 "use strict";
 
-export const concatRoutes = (base, routes) =>
-  routes.map(route => ({
-    ...route,
-    path: `${base}${route.path}`
-  }));
+import { server } from "server";
+
+server.start();
