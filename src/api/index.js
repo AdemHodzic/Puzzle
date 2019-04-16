@@ -27,7 +27,7 @@ const routes = concatRoutes("/api", [
     options: {
       validate: {
         params: {
-          id: Join.number()
+          id: Joi.number()
         }
       }
     }
@@ -111,7 +111,7 @@ const routes = concatRoutes("/api", [
     options: {
       validate: {
         params: {
-          id: Join.number()
+          id: Joi.number()
         }
       }
     }
@@ -132,7 +132,7 @@ const routes = concatRoutes("/api", [
     options: {
       validate: {
         params: {
-          id: Join.number()
+          id: Joi.number()
         }
       }
     }
@@ -153,7 +153,7 @@ const routes = concatRoutes("/api", [
     options: {
       validate: {
         params: {
-          id: Join.number()
+          id: Joi.number()
         }
       }
     }

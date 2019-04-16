@@ -14,10 +14,11 @@ module.exports = {
   resolve: {
     alias: {
       api: path.resolve(__dirname, "src/api"),
-      pages: path.resolve(__dirname, "src/pages"),
+      components: path.resolve(__dirname, "src/components"),
       routes: path.resolve(__dirname, "src/routes"),
       server: path.resolve(__dirname, "src/server"),
       utils: path.resolve(__dirname, "src/utils"),
+      views: path.resolve(__dirname, "src/views"),
       vue$: "vue/dist/vue.esm.js"
     },
     extensions: [".js", ".json", ".vue"]
