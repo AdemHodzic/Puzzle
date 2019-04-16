@@ -2,7 +2,7 @@ exports.up = function(knex, Promise) {
   return (
     knex.schema
       // User
-      .createTable("user", function(table) {
+      .createTable("puzzle_user", function(table) {
         table.increments("id");
         table
           .string("email", 254)
@@ -11,7 +11,7 @@ exports.up = function(knex, Promise) {
         table.string("password_hash", 60);
         table.json("permissions");
         table
-          .string("username")
+          .string("username", 30)
           .notNullable()
           .unique();
       })
@@ -19,18 +19,18 @@ exports.up = function(knex, Promise) {
       .createTable("user_profile", function(table) {
         table.increments("id");
         table.string("bio", 2000);
-        table.string("first_name");
-        table.string("last_name");
+        table.string("first_name", 30);
+        table.string("last_name", 30);
         table.string("photo", 2048);
         table
-          .integer("user")
+          .integer("user_id")
           .unsigned()
           .notNullable();
         table
-          .foreign("user")
+          .foreign("user_id")
           .onDelete("CASCADE")
           .references("id")
-          .inTable("user");
+          .inTable("puzzle_user");
       })
       // Site
       .createTable("site", function(table) {
@@ -48,13 +48,13 @@ exports.up = function(knex, Promise) {
         table.string("description", 300);
         table.string("image", 2048);
         table
-          .integer("parent")
+          .integer("parent_id")
           .unsigned()
           .nullable();
         table.string("route", 2048).unique();
         table.string("title", 40);
         table
-          .foreign("parent")
+          .foreign("parent_id")
           .onDelete("SET NULL")
           .references("id")
           .inTable("page");
@@ -66,54 +66,35 @@ exports.up = function(knex, Promise) {
         table.string("description", 300);
         table.string("image", 2048);
         table
-          .integer("parent")
+          .integer("page_id")
+          .unsigned()
+          .notNullable();
+        table
+          .integer("parent_id")
           .unsigned()
           .nullable();
         table.string("route", 2048).unique();
         table.timestamp("timestamp", { useTz: true }).defaultTo(knex.fn.now());
         table.string("title", 40);
         table
-          .integer("user")
+          .integer("user_id")
           .unsigned()
           .nullable();
         table
-          .foreign("parent")
-          .onDelete("SET NULL")
-          .references("id")
-          .inTable("page");
-        table
-          .foreign("user")
-          .onDelete("SET NULL")
-          .references("id")
-          .inTable("page");
-      })
-      // Prefab
-      .createTable("prefab", function(table) {
-        table.increments("id");
-        table.json("data");
-        table.string("name");
-      })
-      // Prefab history
-      .createTable("prefab_history", function(table) {
-        table.increments("id");
-        table.json("data");
-        table.string("name");
-        table
-          .integer("prefab")
-          .unsigned()
-          .notNullable();
-        table.timestamp("timestamp", { useTz: true }).defaultTo(knex.fn.now());
-        table.integer("user").unsigned();
-        table
-          .foreign("prefab")
+          .foreign("page_id")
           .onDelete("CASCADE")
           .references("id")
-          .inTable("prefab");
+          .inTable("page");
         table
-          .foreign("user")
+          .foreign("parent_id")
           .onDelete("SET NULL")
           .references("id")
-          .inTable("user");
+          .inTable("page");
+        table
+          .foreign("user_id")
+          .onDelete("SET NULL")
+          .references("id")
+          .inTable("puzzle_user");
       })
       // Model
       .createTable("model", function(table) {
@@ -126,34 +107,34 @@ exports.up = function(knex, Promise) {
         table.increments("id");
         table.json("data");
         table
-          .integer("model")
+          .integer("model_id")
           .unsigned()
           .notNullable();
         table.string("name");
         table.timestamp("timestamp", { useTz: true }).defaultTo(knex.fn.now());
-        table.integer("user").unsigned();
+        table.integer("user_id").unsigned();
         table
-          .foreign("model")
+          .foreign("model_id")
           .onDelete("CASCADE")
           .references("id")
           .inTable("model");
         table
-          .foreign("user")
+          .foreign("user_id")
           .onDelete("SET NULL")
           .references("id")
-          .inTable("user");
+          .inTable("puzzle_user");
       })
       // Entry
       .createTable("entry", function(table) {
         table.increments("id");
-        table.integer("author").unsigned();
+        table.integer("author_id").unsigned();
         table.json("data");
         table.string("image", 2048);
         table
           .timestamp("modified_at", { useTz: true })
           .defaultTo(knex.fn.now());
         table
-          .integer("model")
+          .integer("model_id")
           .unsigned()
           .notNullable();
         table.timestamp("published_at", { useTz: true });
@@ -161,12 +142,12 @@ exports.up = function(knex, Promise) {
         table.string("summary", 300);
         table.string("title", 40);
         table
-          .foreign("author")
+          .foreign("author_id")
           .onDelete("SET NULL")
           .references("id")
-          .inTable("user");
+          .inTable("puzzle_user");
         table
-          .foreign("model")
+          .foreign("model_id")
           .onDelete("CASCADE")
           .references("id")
           .inTable("model");
@@ -174,10 +155,10 @@ exports.up = function(knex, Promise) {
       // Entry history
       .createTable("entry_history", function(table) {
         table.increments("id");
-        table.integer("author").unsigned();
+        table.integer("author_id").unsigned();
         table.json("data");
         table
-          .integer("entry")
+          .integer("entry_id")
           .unsigned()
           .notNullable();
         table.string("image", 2048);
@@ -185,7 +166,7 @@ exports.up = function(knex, Promise) {
           .timestamp("modified_at", { useTz: true })
           .defaultTo(knex.fn.now());
         table
-          .integer("model")
+          .integer("model_id")
           .unsigned()
           .notNullable();
         table.timestamp("published_at", { useTz: true });
@@ -194,77 +175,75 @@ exports.up = function(knex, Promise) {
         table.timestamp("timestamp", { useTz: true }).defaultTo(knex.fn.now());
         table.string("title", 40);
         table
-          .foreign("author")
+          .foreign("author_id")
           .onDelete("SET NULL")
           .references("id")
-          .inTable("user");
+          .inTable("puzzle_user");
         table
-          .foreign("entry")
+          .foreign("entry_id")
           .onDelete("CASCADE")
           .references("id")
           .inTable("entry");
         table
-          .foreign("model")
+          .foreign("model_id")
           .onDelete("CASCADE")
           .references("id")
           .inTable("model");
       })
-      // Layout
-      .createTable("layout", function(table) {
+      // Block
+      .createTable("block", function(table) {
         table.increments("id");
         table.json("data");
-        table.integer("model").unsigned();
+        table.integer("model_id").unsigned();
         table.string("name");
         table
-          .foreign("model")
+          .foreign("model_id")
           .onDelete("CASCADE")
           .references("id")
           .inTable("model");
       })
-      // Layout history
-      .createTable("layout_history", function(table) {
+      // Block history
+      .createTable("block_history", function(table) {
         table.increments("id");
-        table.json("data");
         table
-          .integer("layout")
+          .integer("block_id")
           .unsigned()
           .notNullable();
-        table.integer("model").unsigned();
+        table.json("data");
+        table.integer("model_id").unsigned();
         table.string("name");
         table.timestamp("timestamp", { useTz: true }).defaultTo(knex.fn.now());
-        table.integer("user").unsigned();
+        table.integer("user_id").unsigned();
         table
-          .foreign("layout")
+          .foreign("block_id")
           .onDelete("CASCADE")
           .references("id")
-          .inTable("layout");
+          .inTable("block");
         table
-          .foreign("model")
+          .foreign("model_id")
           .onDelete("CASCADE")
           .references("id")
           .inTable("model");
         table
-          .foreign("user")
+          .foreign("user_id")
           .onDelete("SET NULL")
           .references("id")
-          .inTable("user");
+          .inTable("puzzle_user");
       })
   );
 };
 
 exports.down = function(knex, Promise) {
   return knex.schema
-    .dropTable("entry")
-    .dropTable("entry_history")
-    .dropTable("layout")
-    .dropTable("layout_history")
-    .dropTable("model")
-    .dropTable("model_history")
-    .dropTable("page")
-    .dropTable("page_history")
-    .dropTable("prefab")
-    .dropTable("prefab_history")
     .dropTable("site")
-    .dropTable("user")
-    .dropTable("user_profile");
+    .dropTable("page_history")
+    .dropTable("page")
+    .dropTable("block_history")
+    .dropTable("block")
+    .dropTable("entry_history")
+    .dropTable("entry")
+    .dropTable("model_history")
+    .dropTable("model")
+    .dropTable("user_profile")
+    .dropTable("puzzle_user");
 };
