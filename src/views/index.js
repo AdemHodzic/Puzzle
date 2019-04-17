@@ -16,13 +16,20 @@
 "use strict";
 
 import Bcrypt from "bcryptjs";
-import fs from "fs";
-import Login from "components/views/login";
+import LoginComponent from "components/login";
+import { createAdmin } from "factories/admin";
 import { User } from "models/user";
 import { renderer } from "utils";
 import Vue from "vue";
 
-export const adminView = () => "admin";
+export const adminView = () => {
+  const admin = createAdmin();
+  return renderer.renderToString(admin, {
+    script: "/puzzle/js/admin.js",
+    style: "/puzzle/js/admin.css",
+    title: "Puzzle | Admin"
+  });
+};
 
 export const editorView = () => "editor";
 
@@ -41,17 +48,19 @@ export const loginView = async (request, h) => {
     }
   }
   const app = new Vue({
-    components: { Login },
-    template: "<Login />"
+    components: { LoginComponent },
+    template: "<LoginComponent />"
   });
   return renderer
     .renderToString(app, {
       title: "Puzzle | login",
-      style: "/puzzle/css/login.css"
+      style: "/puzzle/css/login.css",
+      script: ""
     })
     .then(html => html)
     .catch(error => {
       console.log(error);
+      return "<b>500</b> Internal error.";
     });
 };
 
@@ -62,10 +71,12 @@ export const pageView = () => {
   return renderer
     .renderToString(app, {
       title: "Puzle",
-      style: "/puzzle/css/style.css"
+      style: "/puzzle/css/style.css",
+      script: ""
     })
     .then(html => html)
     .catch(error => {
       console.log(error);
+      return "<b>500</b> Internal error.";
     });
 };

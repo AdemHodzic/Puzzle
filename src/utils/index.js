@@ -23,19 +23,27 @@ export const concatRoutes = (base, routes) =>
     path: `${base}${route.path}`
   }));
 
-export const renderer = createRenderer({
-  template: `
-<!DOCTYPE html>
+const makeContext = (context = {}) => {
+  const defaultContext = {
+    script: "",
+    style: "",
+    title: ""
+  };
+  return { ...defaultContext, ...context };
+};
 
+export const renderer = createRenderer({
+  template: `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ style }}" rel="stylesheet">
+    <title>{{ title }}</title>
   </head>
   <body>
     <!--vue-ssr-outlet-->
+    <script src="{{ script }}"></script>
   </body>
-</html>
-`
+</html>`
 });

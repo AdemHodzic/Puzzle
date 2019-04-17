@@ -29,8 +29,14 @@ const routes = [
       path: "/css/{path*}",
       handler: (request, h) => {
         const path = Path.resolve("dist/css/", request.params.path);
-        console.log(path);
-        console.log(request.params.path);
+        return h.file(path);
+      }
+    },
+    {
+      method: "GET",
+      path: "/js/{path*}",
+      handler: (request, h) => {
+        const path = Path.resolve("dist/js/", request.params.path);
         return h.file(path);
       }
     },
