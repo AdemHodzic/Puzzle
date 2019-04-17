@@ -19,12 +19,8 @@ import Bcrypt from "bcryptjs";
 import fs from "fs";
 import Login from "components/views/login";
 import { User } from "models/user";
+import { renderer } from "utils";
 import Vue from "vue";
-import { createRenderer } from "vue-server-renderer";
-
-const renderer = createRenderer({
-  template: fs.readFileSync("assets/templates/index.template.html", "utf-8")
-});
 
 export const adminView = () => "admin";
 

@@ -15,8 +15,27 @@
 
 "use strict";
 
+import { createRenderer } from "vue-server-renderer";
+
 export const concatRoutes = (base, routes) =>
   routes.map(route => ({
     ...route,
     path: `${base}${route.path}`
   }));
+
+export const renderer = createRenderer({
+  template: `
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ style }}" rel="stylesheet">
+  </head>
+  <body>
+    <!--vue-ssr-outlet-->
+  </body>
+</html>
+`
+});
