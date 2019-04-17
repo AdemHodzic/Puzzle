@@ -16,12 +16,15 @@
 "use strict";
 
 import Bcrypt from "bcryptjs";
+import fs from "fs";
 import Login from "components/views/login";
 import { User } from "models/user";
 import Vue from "vue";
 import { createRenderer } from "vue-server-renderer";
 
-const renderer = createRenderer();
+const renderer = createRenderer({
+  template: fs.readFileSync("assets/templates/index.template.html", "utf-8")
+});
 
 export const adminView = () => "admin";
 
@@ -46,7 +49,10 @@ export const loginView = async (request, h) => {
     template: "<Login />"
   });
   return renderer
-    .renderToString(app)
+    .renderToString(app, {
+      title: "Puzzle | login",
+      style: "/puzzle/css/login.css"
+    })
     .then(html => html)
     .catch(error => {
       console.log(error);
@@ -58,7 +64,10 @@ export const pageView = () => {
     template: "<div><b>404</b> this page does not exist.</div>"
   });
   return renderer
-    .renderToString(app)
+    .renderToString(app, {
+      title: "Puzle",
+      style: "/puzzle/css/style.css"
+    })
     .then(html => html)
     .catch(error => {
       console.log(error);

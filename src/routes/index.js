@@ -17,12 +17,23 @@
 
 import { routes as apiRoutes } from "api";
 import Joi from "joi";
+import Path from "path";
 import { concatRoutes } from "utils";
 import { adminView, editorView, entryView, loginView, pageView } from "views";
 
 const routes = [
   ...concatRoutes("/puzzle", [
     ...apiRoutes,
+    {
+      method: "GET",
+      path: "/css/{path*}",
+      handler: (request, h) => {
+        const path = Path.resolve("dist/css/", request.params.path);
+        console.log(path);
+        console.log(request.params.path);
+        return h.file(path);
+      }
+    },
     {
       method: "GET",
       path: "/admin",

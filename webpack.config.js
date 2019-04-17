@@ -9,11 +9,12 @@ module.exports = {
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
-    libraryTarget: "commonjs"
+    libraryTarget: "commonjs2"
   },
   resolve: {
     alias: {
       api: path.resolve(__dirname, "src/api"),
+      assets: path.resolve(__dirname, "assets"),
       components: path.resolve(__dirname, "src/components"),
       db: path.resolve(__dirname, "src/db"),
       models: path.resolve(__dirname, "src/models"),

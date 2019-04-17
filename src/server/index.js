@@ -18,6 +18,8 @@
 import "regenerator-runtime/runtime";
 import Hapi from "hapi";
 import HapiAuthCookie from "hapi-auth-cookie";
+import Inert from "inert";
+import Path from "path";
 import { User } from "models/user";
 import { routes } from "routes";
 
@@ -28,9 +30,10 @@ const server = {
       port: "8339"
     });
 
-    server.route(routes);
-
     await server.register(HapiAuthCookie);
+    await server.register(Inert);
+
+    server.route(routes);
 
     server.auth.strategy("session", "cookie", {
       cookie: {
