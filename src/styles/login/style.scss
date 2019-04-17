@@ -17,5 +17,26 @@
 @import "../utils/colors";
 
 body {
+  align-items: center;
   background: $light-blue;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+}
+
+h1 {
+  color: $light-blue;
+  font-weight: 500;
+}
+
+.container {
+  align-items: center;
+  background: $white;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 5px $blue-grey;
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  width: 50vw;
 }

@@ -15,12 +15,17 @@
 
 <template>
   <div>
-    <form action="" method="POST">
-      <label for="username">username</label>
-      <input type="text" name="username" />
+    <form action="" class="container" method="POST">
+      <h1>LOGIN</h1>
+      <div>
+        <label for="username">username</label>
+        <input type="text" name="username" />
+      </div>
 
-      <label for="password">password</label>
-      <input name="password" type="password" />
+      <div>
+        <label for="password">password</label>
+        <input name="password" type="password" />
+      </div>
 
       <input type="submit" value="submit" />
     </form>
