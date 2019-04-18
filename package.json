@@ -1,15 +1,20 @@
 {
   "name": "puzzle",
+  "main": "dist/main.js",
   "version": "0.0.1",
-  "description": "Awesome project developed with TypeORM.",
+  "description": "A highly customizable CMS.",
+  "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "babel-loader": "^8.0.5",
     "css-loader": "^2.1.1",
     "jest": "^24.7.1",
+    "mini-css-extract-plugin": "^0.6.0",
+    "node-sass": "^4.11.0",
     "nodemon": "^1.18.11",
     "npm-run-all": "^4.1.5",
+    "sass-loader": "^7.1.0",
     "vue-loader": "^15.7.0",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.30.0",
@@ -35,10 +40,9 @@
   },
   "scripts": {
     "build": "webpack -p",
-    "dev": "npm-run-all --parallel dev:watch dev:sass dev:server",
+    "dev": "npm-run-all --parallel dev:watch dev:server",
     "dev:build": "webpack -d",
-    "dev:sass": "sass --watch --update src/styles/login/style.scss:dist/css/login.css",
-    "dev:server": "nodemon dist",
+    "dev:server": "nodemon --watch dist",
     "dev:watch": "webpack --watch",
     "test": "jest"
   }

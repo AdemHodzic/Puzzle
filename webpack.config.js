@@ -1,4 +1,5 @@
 const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 
 const rules = [
@@ -49,7 +50,7 @@ const resolve = {
 const mode = "development";
 
 module.exports = [
-  // client config
+  // client scripts
   {
     target: "web",
     entry: {
@@ -57,18 +58,57 @@ module.exports = [
     },
     output: {
       filename: "[name].js",
-      path: path.resolve(__dirname, "dist/js")
+      path: path.resolve(__dirname, "dist/client/js")
+    },
+    optimization: {
+      splitChunks: {
+        chunks: "all"
+      }
     },
     module: { rules },
     mode,
     plugins,
     resolve
   },
-  //server config
+  // scss
+  {
+    entry: {
+      login: path.resolve(__dirname, "src/styles/login/style.scss")
+    },
+    output: {
+      filename: "[name].scss",
+      path: path.resolve(__dirname, "dist/client/css")
+    },
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: "[name].css"
+      })
+    ],
+    module: {
+      rules: [
+        {
+          test: /\.s?css$/,
+          exclude: /node_modules/,
+          use: [
+            {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                hmr: true
+              }
+            },
+            "css-loader",
+            "sass-loader"
+          ]
+        }
+      ]
+    },
+    mode
+  },
+  //server
   {
     target: "node",
     entry: {
-      index: path.resolve(__dirname, "src/index.js")
+      main: path.resolve(__dirname, "src/index.js")
     },
     output: {
       filename: "[name].js",

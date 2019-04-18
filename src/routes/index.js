@@ -28,7 +28,7 @@ const routes = [
       method: "GET",
       path: "/css/{path*}",
       handler: (request, h) => {
-        const path = Path.resolve("dist/css/", request.params.path);
+        const path = Path.resolve("dist/client/css/", request.params.path);
         return h.file(path);
       }
     },
@@ -36,7 +36,7 @@ const routes = [
       method: "GET",
       path: "/js/{path*}",
       handler: (request, h) => {
-        const path = Path.resolve("dist/js/", request.params.path);
+        const path = Path.resolve("dist/client/js/", request.params.path);
         return h.file(path);
       }
     },
