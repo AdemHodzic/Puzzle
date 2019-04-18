@@ -14,11 +14,10 @@
 <!-- License along with Puzzle. If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <div class="admin" id="admin">
-    <!-- <Sidebar /> -->
-    <h1 @click="onClick">Put admin here</h1>
+  <div class="admin">
+    <Sidebar />
 
-    <!-- <router-view class="content" /> -->
+    <router-view class="content" />
   </div>
 </template>
 
@@ -31,21 +30,13 @@ export default {
 
   methods: {
     goBack() {
-      // window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
-    },
-
-    onClick() {
-      console.log("click");
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
     }
   },
 
   created() {
-    // this.$store.commit("fetchBlueprints");
-    // this.$store.commit("fetchUser");
-  },
-
-  mounted() {
-    console.log("hola");
+    this.$store.commit("fetchBlueprints");
+    this.$store.commit("fetchUser");
   }
 };
 </script>

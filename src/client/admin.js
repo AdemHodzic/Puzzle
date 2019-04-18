@@ -1,5 +1,5 @@
-import { createAdmin } from "factories/admin";
+import createAdmin from 'factories/admin'
 
-const admin = createAdmin();
+const admin = createAdmin()
 
-admin.$mount("#admin");
+admin.$mount('#admin')

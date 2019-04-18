@@ -13,17 +13,14 @@
 // You should have received a copy of the GNU Affero General Public
 // License along with Puzzle. If not, see <https://www.gnu.org/licenses/>.
 
-"use strict";
-
 import "regenerator-runtime/runtime";
 import Hapi from "hapi";
 import HapiAuthCookie from "hapi-auth-cookie";
 import Inert from "inert";
-import Path from "path";
 import { User } from "models/user";
-import { routes } from "routes";
+import routes from "routes";
 
-const server = {
+export default {
   start: async () => {
     const server = Hapi.server({
       host: "localhost",
@@ -63,5 +60,3 @@ const server = {
     console.log("server running at:", server.info.uri);
   }
 };
-
-export { server };

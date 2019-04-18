@@ -13,49 +13,47 @@
 // You should have received a copy of the GNU Affero General Public
 // License along with Puzzle. If not, see <https://www.gnu.org/licenses/>.
 
-"use strict";
+import apiRoutes from 'api'
+import Joi from 'joi'
+import Path from 'path'
+import { concatRoutes } from 'utils'
+import { adminView, editorView, entryView, loginView, pageView } from 'views'
 
-import { routes as apiRoutes } from "api";
-import Joi from "joi";
-import Path from "path";
-import { concatRoutes } from "utils";
-import { adminView, editorView, entryView, loginView, pageView } from "views";
-
-const routes = [
-  ...concatRoutes("/puzzle", [
+export default [
+  ...concatRoutes('/puzzle', [
     ...apiRoutes,
     {
-      method: "GET",
-      path: "/css/{path*}",
+      method: 'GET',
+      path: '/css/{path*}',
       handler: (request, h) => {
-        const path = Path.resolve("dist/client/css/", request.params.path);
-        return h.file(path);
-      }
+        const path = Path.resolve('dist/client/css/', request.params.path)
+        return h.file(path)
+      },
     },
     {
-      method: "GET",
-      path: "/js/{path*}",
+      method: 'GET',
+      path: '/js/{path*}',
       handler: (request, h) => {
-        const path = Path.resolve("dist/client/js/", request.params.path);
-        return h.file(path);
-      }
+        const path = Path.resolve('dist/client/js/', request.params.path)
+        return h.file(path)
+      },
     },
     {
-      method: "GET",
-      path: "/admin",
-      handler: (request, h) => adminView()
+      method: 'GET',
+      path: '/admin',
+      handler: () => adminView(),
     },
     {
-      method: "GET",
-      path: "/login",
+      method: 'GET',
+      path: '/login',
       handler: loginView,
       options: {
-        auth: false
-      }
+        auth: false,
+      },
     },
     {
-      method: "POST",
-      path: "/login",
+      method: 'POST',
+      path: '/login',
       handler: loginView,
       options: {
         auth: false,
@@ -67,56 +65,54 @@ const routes = [
             username: Joi.string()
               .alphanum()
               .min(3)
-              .max(30)
-          }
-        }
-      }
+              .max(30),
+          },
+        },
+      },
     },
     {
-      method: "GET",
-      path: "/logout",
+      method: 'GET',
+      path: '/logout',
       handler: (request, h) => {
-        request.cookieAuth.clear();
-        return h.redirect("/");
-      }
+        request.cookieAuth.clear()
+        return h.redirect('/')
+      },
     },
     {
-      method: "GET",
-      path: "/editor",
-      handler: (request, h) => editorView()
-    }
+      method: 'GET',
+      path: '/editor',
+      handler: () => editorView(),
+    },
   ]),
   {
-    method: "GET",
-    path: "/{model}/{id}/{slug}",
-    handler: (request, h) => {
+    method: 'GET',
+    path: '/{model}/{id}/{slug}',
+    handler: request => {
       const schema = {
         model: Joi.string(),
         id: Joi.number(),
-        slug: Joi.string()
-      };
-      const result = Joi.validate(request.params, schema);
+        slug: Joi.string(),
+      }
+      const result = Joi.validate(request.params, schema)
       if (result.error != null) {
         // TODO: Use the page handler
-        return pageView();
+        return pageView()
       }
-      return entryView();
+      return entryView()
     },
     options: {
-      auth: false
-    }
+      auth: false,
+    },
   },
   {
-    method: "GET",
-    path: "/{path*}",
-    handler: (request, h) => {
+    method: 'GET',
+    path: '/{path*}',
+    handler: () => {
       // TODO: Get page or 404 from DB using request.path
-      return pageView(/*data*/);
+      return pageView(/* data */)
     },
     options: {
-      auth: false
-    }
-  }
-];
-
-export { routes };
+      auth: false,
+    },
+  },
+]

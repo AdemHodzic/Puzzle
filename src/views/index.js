@@ -13,23 +13,18 @@
 // You should have received a copy of the GNU Affero General Public
 // License along with Puzzle. If not, see <https://www.gnu.org/licenses/>.
 
-"use strict";
-
 import Bcrypt from "bcryptjs";
 import LoginComponent from "components/login";
-import { createAdmin } from "factories/admin";
 import { User } from "models/user";
-import { renderer } from "utils";
+import { htmlTemplate, renderer } from "utils";
 import Vue from "vue";
 
-export const adminView = () => {
-  const admin = createAdmin();
-  return renderer.renderToString(admin, {
-    script: "/puzzle/js/admin.js",
-    style: "/puzzle/js/admin.css",
-    title: "Puzzle | Admin"
-  });
-};
+export const adminView = () =>
+  htmlTemplate(
+    ["runtime.js", "vendors~admin.js", "admin.js"],
+    "admin.css",
+    "admin"
+  );
 
 export const editorView = () => "editor";
 
@@ -37,8 +32,8 @@ export const entryView = () => "entry";
 
 export const loginView = async (request, h) => {
   if (request.route.method === "post") {
-    const username = request.payload.username;
-    const password = request.payload.password;
+    const { username } = request.payload;
+    const { password } = request.payload;
     const user = await User.query().findOne({
       username
     });

@@ -13,22 +13,20 @@
 // You should have received a copy of the GNU Affero General Public
 // License along with Puzzle. If not, see <https://www.gnu.org/licenses/>.
 
-"use strict";
-
-import Knex from "knex";
-import { Model } from "objection";
+import Knex from 'knex'
+import { Model } from 'objection'
 
 const knex = Knex({
-  client: "pg",
+  client: 'pg',
   connection: {
-    charset: "utf8",
-    database: "puzzle",
-    host: "localhost",
-    password: "puzzle",
-    user: "puzzle"
-  }
-});
+    charset: 'utf8',
+    database: 'puzzle',
+    host: 'localhost',
+    password: 'puzzle',
+    user: 'puzzle',
+  },
+})
 
-Model.knex(knex);
+Model.knex(knex)
 
-export { Model };
+export default Model

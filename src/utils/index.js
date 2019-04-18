@@ -13,8 +13,6 @@
 // You should have received a copy of the GNU Affero General Public
 // License along with Puzzle. If not, see <https://www.gnu.org/licenses/>.
 
-"use strict";
-
 import { createRenderer } from "vue-server-renderer";
 
 export const concatRoutes = (base, routes) =>
@@ -23,14 +21,26 @@ export const concatRoutes = (base, routes) =>
     path: `${base}${route.path}`
   }));
 
-const makeContext = (context = {}) => {
-  const defaultContext = {
-    script: "",
-    style: "",
-    title: ""
-  };
-  return { ...defaultContext, ...context };
-};
+export const htmlTemplate = (
+  scripts = [],
+  style = "",
+  id = "app"
+) => `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/puzzle/css/${style}" rel="stylesheet">
+  </head>
+  <body>
+    <div id="${id}"></div>
+    ${scripts.reduce(
+      (res, script) =>
+        `${res}<script type="application/javascript" src="/puzzle/js/${script}"></script>`,
+      ""
+    )}
+  </body>
+</html>`;
 
 export const renderer = createRenderer({
   template: `<!DOCTYPE html>
