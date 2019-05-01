@@ -57,6 +57,7 @@
     "dev:server": "nodemon --watch dist",
     "dev:watch": "webpack --watch",
     "eslint": "eslint",
+    "knex": "knex",
     "test": "jest"
   },
   "husky": {
