@@ -15,28 +15,6 @@
 
 <template>
   <div class="admin">
-    <Sidebar />
-
-    <router-view class="content" />
+    admin
   </div>
 </template>
-
-<script>
-import axios from "axios";
-import Sidebar from "./sidebar";
-
-export default {
-  components: { Sidebar },
-
-  methods: {
-    goBack() {
-      window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
-    }
-  },
-
-  created() {
-    this.$store.commit("fetchBlueprints");
-    this.$store.commit("fetchUser");
-  }
-};
-</script>

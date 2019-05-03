@@ -17,22 +17,15 @@ import AdminComponent from 'components/admin'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
-import { sync } from 'vuex-router-sync'
-import { routes } from './routes'
-import { store as adminStore } from './store'
+// import { sync } from 'vuex-router-sync'
 
 Vue.use(VueRouter)
 Vue.use(Vuex)
 
-const router = VueRouter({ routes })
-const store = new Vuex.Store({ adminStore })
-
-sync(store, router)
+// sync(store, router)
 
 export default () => {
   const admin = new Vue({
-    router,
-    store,
     render: h => h(AdminComponent),
   })
   return admin

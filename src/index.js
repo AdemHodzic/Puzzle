@@ -13,6 +13,6 @@
 // You should have received a copy of the GNU Affero General Public
 // License along with Puzzle. If not, see <https://www.gnu.org/licenses/>.
 
-import server from "server";
+import server from 'server'
 
-server.start();
+server.start()
