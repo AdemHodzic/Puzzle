@@ -1,6 +1,6 @@
 # Puzzle
 
-Puzzle allows you to build websites quicly without any code.
+Puzzle allows you to build websites quickly without any code.
 
 Steps to run this project:
 
