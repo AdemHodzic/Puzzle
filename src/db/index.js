@@ -15,17 +15,9 @@
 
 import Knex from 'knex'
 import { Model } from 'objection'
+import { dbConfig } from 'utils'
 
-const knex = Knex({
-  client: 'pg',
-  connection: {
-    charset: 'utf8',
-    database: 'puzzle',
-    host: 'localhost',
-    password: 'puzzle',
-    user: 'puzzle',
-  },
-})
+const knex = Knex(dbConfig())
 
 Model.knex(knex)
 

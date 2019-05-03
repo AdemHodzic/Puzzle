@@ -1,10 +1,11 @@
-# Puzzle, a hassle free CMS.
+# Puzzle
+
+Puzzle allows you to build websites quicly without any code.
 
 Steps to run this project:
 
 1. Clone the repo.
-2. Setup a postgres database. For the time being the database's name, user, and
-   password should be "puzzle".
+2. Setup a [database](docs/databases.md).
 3. Install the dependencies: `yarn`.
 4. Apply migrations: `yarn run knex migrate:latest`.
 5. Run the project: `yarn run dev`.

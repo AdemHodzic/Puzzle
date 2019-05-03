@@ -1,26 +1,23 @@
 module.exports = {
   development: {
-    client: "pg",
+    client: 'sqlite3',
     connection: {
-      database: process.env.PUZZLE_DB_NAME || "puzzle",
-      host: process.env.PUZZLE_DB_HOST || "localhost",
-      password: process.env.PUZZLE_DB_PASSWORD || "puzzle",
-      user: process.env.PUZZLE_DB_USER || "puzzle"
+      filename: 'db.sqlite',
     },
     mirgrations: {
-      tableName: "puzzle_migrations"
-    }
+      tableName: 'puzzle_migrations',
+    },
   },
   production: {
-    client: "pg",
+    client: 'pg',
     connection: {
-      database: process.env.PUZZLE_DB_NAME,
-      host: process.env.PUZZLE_DB_HOST,
-      password: process.env.PUZZLE_DB_PASSWORD,
-      user: process.env.PUZZLE_DB_USER
+      database: process.env.DB_NAME,
+      host: process.env.DB_HOST,
+      password: process.env.DB_PASSWORD,
+      user: process.env.DB_USER,
     },
     mirgrations: {
-      tableName: "puzzle_migrations"
-    }
-  }
-};
+      tableName: 'puzzle_migrations',
+    },
+  },
+}

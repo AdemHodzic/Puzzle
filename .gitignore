@@ -7,3 +7,4 @@ temp/
 *error.log
 /dist
 .env
+*.sqlite
