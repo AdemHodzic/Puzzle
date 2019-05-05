@@ -42,23 +42,6 @@ export default concatRoutes('/api', [
   },
   {
     method: ['GET', 'POST'],
-    path: '/layouts',
-    handler: () => 'layouts',
-  },
-  {
-    method: ['DELETE', 'GET', 'PUT'],
-    path: '/layouts/{id}',
-    handler: () => 'layout detail',
-    options: {
-      validate: {
-        params: {
-          id: Joi.number(),
-        },
-      },
-    },
-  },
-  {
-    method: ['GET', 'POST'],
     path: '/models',
     handler: () => 'models',
   },
@@ -99,7 +82,7 @@ export default concatRoutes('/api', [
   {
     method: ['DELETE', 'GET', 'PUT'],
     path: '/sites/{id}',
-    handler: 'site detail',
+    handler: () => 'site detail',
     options: {
       validate: {
         params: {
