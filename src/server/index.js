@@ -18,6 +18,7 @@ import Hapi from 'hapi'
 import HapiAuthCookie from 'hapi-auth-cookie'
 import routes from 'routes'
 
+
 export default {
   start: async () => {
     const server = Hapi.server({
@@ -29,21 +30,21 @@ export default {
 
     server.route(routes)
 
-    server.auth.strategy('session', 'cookie', {
-      cookie: {
-        name: 'puzzle',
-        password:
-          process.env.PUZZLE_SECRET_KEY ||
-          '$2y$12$IVpqJeYwY2I2aQMSg8uT2ObwavLdiiGeG.fcRYN64F8QRAPVQSjgm',
-        ttl: 1000 * 60 * 60 * 24 * 7,
-        clearInvalid: true,
-        isSecure: false,
-      },
-      keepAlive: true,
-      redirectTo: '/puzzle/login',
-    })
+    // server.auth.strategy('session', 'cookie', {
+    //   cookie: {
+    //     name: 'puzzle',
+    //     password:
+    //       process.env.PUZZLE_SECRET_KEY ||
+    //       '$2y$12$IVpqJeYwY2I2aQMSg8uT2ObwavLdiiGeG.fcRYN64F8QRAPVQSjgm',
+    //     ttl: 1000 * 60 * 60 * 24 * 7,
+    //     clearInvalid: true,
+    //     isSecure: false,
+    //   },
+    //   keepAlive: true,
+    //   redirectTo: '/puzzle/login',
+    // })
 
-    server.auth.default('session')
+    // server.auth.default('session')
 
     await server.start()
 

@@ -15,19 +15,19 @@
 
 <template>
   <div>
-    <form action="" class="container" method="POST">
+    <form action class="container" method="POST">
       <h1>LOGIN</h1>
       <div>
         <label for="username">username</label>
-        <input type="text" name="username" />
+        <input type="text" name="username">
       </div>
 
       <div>
         <label for="password">password</label>
-        <input name="password" type="password" />
+        <input name="password" type="password">
       </div>
 
-      <input type="submit" value="submit" />
+      <input type="submit" value="submit">
     </form>
   </div>
 </template>
