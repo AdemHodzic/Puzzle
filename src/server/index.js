@@ -21,7 +21,7 @@ import routes from 'routes'
 export default {
   start: async () => {
     const server = Hapi.server({
-      host: 'localhost',
+      host: '0.0.0.0',
       port: '8339',
     })
 

@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  db:
+    image: postgres
+    ports:
+    - "5432:5432"
+    environment:
+    -  DB_CLIENT=pg
+    -  DB_HOST=localhost
+    -  DB_PASSWORD=puzzle
+    -  DB_NAME=puzzle
+    -  DB_USER=puzzle
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      network: host
+    ports:
+    - "8339:8339"
+    volumes:
+    - /app/node_modules
+    - .:/app
+    depends_on: 
+    - db
+    environment:
+    - DB_CLIENT=pg
+    - DB_HOST=db
+    - DB_PASSWORD=puzzle
+    - DB_NAME=puzzle
+    - DB_USER=puzzle
+    

@@ -58,7 +58,7 @@
     "dev": "npm-run-all --parallel dev:watch dev:server",
     "dev:build": "webpack -d",
     "dev:server": "nodemon --watch dist",
-    "dev:watch": "webpack --watch",
+    "dev:watch": "webpack --watch --host 0.0.0.0",
     "eslint": "eslint",
     "knex": "knex",
     "test": "jest"
